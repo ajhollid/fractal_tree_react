@@ -35,7 +35,6 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "bootstrap": "^4.2.1",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-slider": "^2.1.5",
