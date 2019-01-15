@@ -1,62 +1,56 @@
 import React, { Component } from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-import Collapse from 'react-bootstrap/lib/Collapse';
-import ReactBootstrapSlider from 'react-bootstrap-slider';
+import { Button } from 'react-bootstrap-buttons';
+import Controls from './Controls.jsx';
 
 
 class App extends Component {
   constructor( props ) {
     super( props );
     this.state = {
-      open: false,
-      sliderValue: 5,
+      open: true,
+      maxTrees: 1, // Min 1, Max 20, Step 1, def 1
+      maxDepth: 10, // Min 1, Max 22, Step 1, def 10
+      frameRate: 7, // Min 1, Max 100, Step 1, def 20
+      baseColor: 'rgb(255, 255, 255)',
+      angleIncrement: Math.PI / 8,
+      randomAngleMax: 1.5, // Min 0, Max 10, step 0.25, def 1.5
+      trunkWidth: 10, // Min 0, Max 100, step 1, def 10
+      minLengthFactor: 0.05, // Min 0, Max 0.3, step 0.025, def 0.05
+      maxLengthFactor: 0.25, // Min 0, Max 0.3, step 0.025, def 0.05
     };
-    this.onSliderChange = this.onSliderChange.bind( this );
+    this.onChange = this.onChange.bind( this );
   }
 
-  onSliderChange( e ) {
+  onChange( e, name ) {
     this.setState( {
-      sliderValue: e.target.value,
+      [name]: e.target.value,
     } );
   }
 
   render() {
-    const { sliderValue, open } = this.state;
+    const {
+      open, maxTrees, maxDepth, frameRate, baseColor, angleIncrement, randomAngleMax, trunkWidth, minLengthFactor, maxLengthFactor,
+    } = this.state;
     return (
       <div>
-        <Grid fluid>
-          <Row className="show-grid">
-            <Collapse in={open} dimension="height">
-              <div>
-                <Col xs={12} md={2}>
+        <Controls
+          open={open}
+          onChange={this.onChange}
+          maxTrees={maxTrees}
+          maxDepth={maxDepth}
+          frameRate={frameRate}
+          baseColor={baseColor}
+          angleIncrement={angleIncrement}
+          randomAngleMax={randomAngleMax}
+          trunkWidth={trunkWidth}
+          minLengthFactor={minLengthFactor}
+          maxLengthFactor={maxLengthFactor}
+        />
+        <div className="background">
+          <Button btnStyle="secondary" outline onClick={() => this.setState( { open: !open } )}>Collapse/Open</Button>
+          <p>Background</p>
 
-                  <Row className="show-grid">
-                    {/* {'<Col xs={12} md={2} />'} */}
-                    <Col xs={6} md={10}>
-                      <ReactBootstrapSlider
-                        value={sliderValue}
-                        change={this.onSliderChange}
-                        min={0}
-                        max={10}
-                        step={1}
-                        enabled="enabled"
-                      />
-                    </Col>
-                    <Col xs={6} md={2}>
-                      <p>{sliderValue}</p>
-                    </Col>
-                  </Row>
-                </Col>
-              </div>
-            </Collapse>
-            <Col xs={6} md={10}>
-              <code>{'<Col xs={6} md={10} />'}</code>
-            </Col>
-          </Row>
-        </Grid>
+        </div>
       </div>
     );
   }
