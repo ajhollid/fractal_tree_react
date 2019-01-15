@@ -37,6 +37,7 @@
   "dependencies": {
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
+    "react-bootstrap-buttons": "^0.3.0",
     "react-bootstrap-slider": "^2.1.5",
     "react-dom": "^16.7.0"
   }
