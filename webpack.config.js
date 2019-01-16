@@ -55,9 +55,6 @@ module.exports = {
       },
     ],
   },
-  // optimization: {
-  //   minimizer: [new TerserPlugin()],
-  // },
   plugins: [
     // new BundleAnalyzerPlugin(),
     new CleanWebpackPlugin( DIST ),

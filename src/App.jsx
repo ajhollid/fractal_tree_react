@@ -73,7 +73,7 @@ class App extends Component {
     return (
       <div>
         <Controls
-          open
+          open={open}
           onChange={this.onChange}
           maxTrees={maxTrees}
           maxDepth={maxDepth}
