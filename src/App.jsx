@@ -33,6 +33,10 @@ class App extends Component {
   }
 
   startDrawing() {
+    const { open } = this.state;
+    this.setState( {
+      open: !open,
+    } );
     const {
       maxTrees,
       maxDepth,
@@ -94,7 +98,7 @@ class App extends Component {
 
         </div>
 
-        <Button className="controlButton" btnStyle="primary" outline onClick={() => this.setState( { open: !open } )}>Collapse/Open</Button>
+        <Button className="controlButton" btnStyle="primary" outline onClick={() => this.setState( { open: !open } )}>Controls</Button>
 
       </div>
     );

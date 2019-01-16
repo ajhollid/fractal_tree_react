@@ -14,13 +14,31 @@
     padding: 1rem;
     border-radius: 1rem;
     position: absolute;
-    left: 10rem;
-    top: 10rem;
+    left: 5vw;
+    top: 5vw;
     width: 20vw;
-    background: #b6b6b6;
+    background: rgba(182, 182, 182, 0.2);
     border: 1px solid rgba(86,61,124,.2);
     z-index: 2;
 }
+
+@media only screen and (max-width: 600px) {
+    .controlbox {
+        left: 10vw;
+        width: 80vw;
+    }
+  }
+
+
+  @media screen 
+    and (orientation: landscape) 
+    and (max-width: 800px) {
+    .controlbox {
+        top: 10vh;
+        left: 10vw;
+        width: 80vw;
+    }
+  }
 
 .background {
     height: 100vh;
