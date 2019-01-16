@@ -11,33 +11,49 @@ class App extends Component {
       open: false,
       maxTrees: 1, // Min 1, Max 20, Step 1, def 1
       maxDepth: 10, // Min 1, Max 22, Step 1, def 10
-      frameRate: 7, // Min 1, Max 100, Step 1, def 20
+      frameRate: 60, // Min 1, Max 100, Step 1, def 20
       baseColor: 'rgb(255, 255, 255)',
       angleIncrement: Math.PI / 8,
       randomAngleMax: 1.5, // Min 0, Max 10, step 0.25, def 1.5
       trunkWidth: 10, // Min 0, Max 100, step 1, def 10
       minLengthFactor: 0.05, // Min 0, Max 0.3, step 0.025, def 0.05
       maxLengthFactor: 0.25, // Min 0, Max 0.3, step 0.025, def 0.05
-      willAnimate: true,
     };
+
+    this.tree = React.createRef();
     this.onChange = this.onChange.bind( this );
+    this.startDrawing = this.startDrawing.bind( this );
   }
 
+
   onChange( e, name ) {
+    console.log( 'onchagne' );
     this.setState( {
       [name]: e.target.value,
     } );
   }
 
+  startDrawing() {
+    this.tree.current.start();
+  }
+
   render() {
     const {
-      open, maxTrees, maxDepth, frameRate, baseColor, angleIncrement, randomAngleMax, trunkWidth, minLengthFactor, maxLengthFactor,
-      willAnimate,
+      open,
+      maxTrees,
+      maxDepth,
+      frameRate,
+      baseColor,
+      angleIncrement,
+      randomAngleMax,
+      trunkWidth,
+      minLengthFactor,
+      maxLengthFactor,
     } = this.state;
     return (
       <div>
         <Controls
-          open={open}
+          open
           onChange={this.onChange}
           maxTrees={maxTrees}
           maxDepth={maxDepth}
@@ -48,13 +64,25 @@ class App extends Component {
           trunkWidth={trunkWidth}
           minLengthFactor={minLengthFactor}
           maxLengthFactor={maxLengthFactor}
+          startDrawing={this.startDrawing}
         />
         <div className="background">
-          <Tree willAnimate={willAnimate} />
+          <Tree
+            ref={this.tree}
+            maxTrees={maxTrees}
+            maxDepth={maxDepth}
+            frameRate={frameRate}
+            baseColor={baseColor}
+            angleIncrement={angleIncrement}
+            randomAngleMax={randomAngleMax}
+            trunkWidth={trunkWidth}
+            minLengthFactor={minLengthFactor}
+            maxLengthFactor={maxLengthFactor}
+          />
 
         </div>
 
-        <Button className="controlButton" btnStyle="primary" outline onClick={() => this.setState( { open: !open, willAnimate: open } )}>Collapse/Open</Button>
+        <Button className="controlButton" btnStyle="primary" outline onClick={() => this.setState( { open: !open } )}>Collapse/Open</Button>
 
       </div>
     );

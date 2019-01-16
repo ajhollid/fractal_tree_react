@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
+import { Button } from 'react-bootstrap-buttons';
 
 
 class Controls extends Component {
@@ -142,8 +143,13 @@ class Controls extends Component {
                   {maxLengthFactor}
                 </Col>
               </Row>
-
+              <Row>
+                <Col xs={6}>
+                  <Button btnStyle="primary" outline change={this} onClick={() => this.props.startDrawing()}>Draw</Button>
+                </Col>
+              </Row>
             </Grid>
+
           </div>
         </Collapse>
       </div>

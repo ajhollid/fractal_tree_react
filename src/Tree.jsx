@@ -5,6 +5,7 @@ import NumberUtils from './NumberUtils.js';
 class Tree extends Component {
   constructor( props ) {
     super( props );
+    this.stopped = true;
     this.fractalCanvasRef = React.createRef();
     this.leafCanvasRef = React.createRef();
     this.floor = [];
@@ -13,8 +14,6 @@ class Tree extends Component {
     this.WIDTH = window.innerWidth;
     this.HEIGHT = window.innerHeight;
     this.MARGIN = 200;
-    this.MAX_TREES = 1;
-    this.MAX_DEPTH = 10;
     this.FRAME_RATE = 7;
     this.branchesFinished = 0;
     this.treesCompleted = 0;
@@ -40,10 +39,7 @@ class Tree extends Component {
   componentDidMount() {
     this.fractalCanvas = this.fractalCanvasRef.current;
     this.leafCanvas = this.leafCanvasRef.current;
-
-
     this.setupCanvases();
-    this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.MAX_DEPTH ) );
   }
 
   setupCanvases() {
@@ -63,7 +59,6 @@ class Tree extends Component {
 
 
   dropLeaves() {
-    let animationId = 0;
     let usedLeaves = [];
     this.leafCtx.clearRect( 0, 0, this.WIDTH, this.HEIGHT );
     while ( this.leaves.length ) {
@@ -103,20 +98,19 @@ class Tree extends Component {
     // Reset arrays
     this.leaves = usedLeaves;
     usedLeaves = [];
-
-    if ( this.leaves.filter( leaf => leaf.y < this.HEIGHT - 2 ) ) {
-      animationId = requestAnimationFrame( this.dropLeaves );
-    } else {
-      cancelAnimationFrame( animationId );
+    if ( this.leaves.filter( leaf => leaf.y < this.HEIGHT - 2 ) && this.treesCompleted === this.props.maxTrees ) {
+      requestAnimationFrame( this.dropLeaves );
     }
   }
 
-  drawBranch( x, y, a, l, strokeWidth, count, colors ) {
+  drawBranch( x, y, a, l, strokeWidth, count, colors, treeId ) {
     let frameCount = 1;
     let waypoints = [];
-
     function drawLine( callback, ctx ) {
       function animateLine() {
+        if ( ctx.currentTree !== treeId ) {
+          return;
+        }
         ctx.fractalCtx.beginPath();
         ctx.fractalCtx.moveTo( waypoints[frameCount - 1].x, waypoints[frameCount - 1].y );
         ctx.fractalCtx.lineTo( waypoints[frameCount].x, waypoints[frameCount].y );
@@ -133,8 +127,7 @@ class Tree extends Component {
       }
       animateLine();
     }
-
-    if ( count <= this.MAX_DEPTH ) {
+    if ( count <= this.props.maxDepth ) {
       const newCount = count + 1;
       const newX = x + Math.cos( a ) * l;
       const newY = y + Math.sin( a ) * l;
@@ -148,6 +141,7 @@ class Tree extends Component {
           strokeWidth * 0.7,
           newCount,
           colors,
+          treeId,
         );
         this.drawBranch(
           newX, newY,
@@ -156,9 +150,10 @@ class Tree extends Component {
           strokeWidth * 0.7,
           newCount,
           colors,
+          treeId,
         );
       }, this );
-      if ( count === this.MAX_DEPTH ) {
+      if ( count === this.props.maxDepth ) {
         this.leafCtx.beginPath();
         this.leaves.push( {
           x: newX,
@@ -173,15 +168,14 @@ class Tree extends Component {
         this.leafCtx.stroke();
       }
     } else {
+      this.inProgress = false;
       this.branchesFinished += 1;
-
-
       // Check and see if all branches have been drawn, if so draw next tree
-      if ( this.branchesFinished === 2 ** ( this.MAX_DEPTH + 1 ) ) {
+      if ( this.branchesFinished === 2 ** ( this.props.maxDepth + 1 ) ) {
         this.branchesFinished = 0;
         this.treesCompleted += 1;
-        if ( this.treesCompleted < this.MAX_TREES ) {
-          this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.MAX_DEPTH ) );
+        if ( this.treesCompleted < this.props.maxTrees ) {
+          this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.props.maxDepth ) );
         } else {
           this.dropLeaves();
         }
@@ -191,6 +185,8 @@ class Tree extends Component {
 
 
   drawTree( colors ) {
+    const treeId = Math.random();
+    this.currentTree = treeId;
     this.drawBranch(
       NumberUtils.randomFactor( this.MARGIN, this.WIDTH - this.MARGIN ),
       this.origin.y,
@@ -199,9 +195,17 @@ class Tree extends Component {
       NumberUtils.randomFactor( 1, this.origin.lineWidth ),
       0,
       colors,
+      treeId,
     );
   }
 
+  start() {
+    this.leaves = [];
+    this.treesCompleted = 0;
+    this.leafCtx.clearRect( 0, 0, this.leafCanvas.width, this.leafCanvas.height );
+    this.fractalCtx.clearRect( 0, 0, this.fractalCanvas.width, this.fractalCanvas.height );
+    this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.props.maxDepth ) );
+  }
 
   render() {
     return (
