@@ -42,7 +42,7 @@ class Controls extends Component {
                     value={maxDepth}
                     change={e => onChange( e, 'maxDepth' )}
                     min={1}
-                    max={12}
+                    max={15}
                     step={1}
                   />
                 </Col>

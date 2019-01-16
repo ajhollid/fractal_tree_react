@@ -11,7 +11,7 @@ class App extends Component {
       open: false,
       maxTrees: 1, // Min 1, Max 20, Step 1, def 1
       maxDepth: 10, // Min 1, Max 22, Step 1, def 10
-      frameRate: 60, // Min 1, Max 100, Step 1, def 20
+      frameRate: 20, // Min 1, Max 100, Step 1, def 20
       baseColor: 'rgb(255, 255, 255)',
       angleIncrement: Math.PI / 8,
       randomAngleMax: 1.5, // Min 0, Max 10, step 0.25, def 1.5
@@ -27,7 +27,6 @@ class App extends Component {
 
 
   onChange( e, name ) {
-    console.log( 'onchagne' );
     this.setState( {
       [name]: e.target.value,
     } );

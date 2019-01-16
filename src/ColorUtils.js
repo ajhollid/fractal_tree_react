@@ -8,6 +8,11 @@ const COLORS = [
   'rgb(142, 183, 134)',
 ];
 
+const BASE_COLOR = 'rgb(255, 255, 255)';
+
+function getBaseColor() {
+  return BASE_COLOR;
+}
 
 function getRandomTreeColor() {
   return COLORS[NumberUtils.randomInt( COLORS.length )];
@@ -45,4 +50,4 @@ function interpolateColors( color1, steps ) {
   };
 }
 
-export default { getRandomTreeColor, interpolateColors };
+export default { getBaseColor, getRandomTreeColor, interpolateColors };
