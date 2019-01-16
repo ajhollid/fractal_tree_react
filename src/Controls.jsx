@@ -83,7 +83,7 @@ class Controls extends Component {
                   />
                 </Col>
                 <Col xs={6} md={4}>
-                  <p>Max Angle Increment:</p>
+                  <p>Max Angle Randomness:</p>
                 </Col>
                 <Col xs={6} md={2}>
                   {randomAngleMax}
@@ -114,8 +114,8 @@ class Controls extends Component {
                     value={minLengthFactor}
                     change={e => onChange( e, 'minLengthFactor' )}
                     min={0}
-                    max={0.3}
-                    step={0.025}
+                    max={1}
+                    step={0.1}
                   />
                 </Col>
                 <Col xs={6} md={4}>
@@ -132,8 +132,8 @@ class Controls extends Component {
                     value={maxLengthFactor}
                     change={e => onChange( e, 'maxLengthFactor' )}
                     min={0}
-                    max={0.3}
-                    step={0.025}
+                    max={1}
+                    step={0.1}
                   />
                 </Col>
                 <Col xs={6} md={4}>

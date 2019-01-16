@@ -33,6 +33,7 @@ class Tree extends Component {
     this.dropLeaves = this.dropLeaves.bind( this );
     this.drawBranch = this.drawBranch.bind( this );
     this.drawTree = this.drawTree.bind( this );
+    this.setParams = this.setParams.bind( this );
   }
 
 
@@ -57,6 +58,9 @@ class Tree extends Component {
     this.fractalCtx.canvas.height = this.HEIGHT;
   }
 
+  setParams( params ) {
+    this.params = params;
+  }
 
   dropLeaves() {
     let usedLeaves = [];
@@ -98,7 +102,8 @@ class Tree extends Component {
     // Reset arrays
     this.leaves = usedLeaves;
     usedLeaves = [];
-    if ( this.leaves.filter( leaf => leaf.y < this.HEIGHT - 2 ) && this.treesCompleted === this.props.maxTrees ) {
+    if ( this.leaves.filter( leaf => leaf.y < this.HEIGHT - 2 )
+    && this.treesCompleted === this.params.maxTrees ) {
       requestAnimationFrame( this.dropLeaves );
     }
   }
@@ -127,7 +132,7 @@ class Tree extends Component {
       }
       animateLine();
     }
-    if ( count <= this.props.maxDepth ) {
+    if ( count <= this.params.maxDepth ) {
       const newCount = count + 1;
       const newX = x + Math.cos( a ) * l;
       const newY = y + Math.sin( a ) * l;
@@ -136,8 +141,8 @@ class Tree extends Component {
       drawLine( () => {
         this.drawBranch(
           newX, newY,
-          a - this.origin.angleIncrement * NumberUtils.randomFactor( 1, this.origin.randomAngleMax ),
-          l * NumberUtils.randomFactor( 0.5, 0.9 ),
+          a - this.params.angleIncrement * NumberUtils.randomFactor( 1, this.params.randomAngleMax ),
+          l * NumberUtils.randomFactor( this.params.minLengthFactor, this.params.maxLengthFactor ),
           strokeWidth * 0.7,
           newCount,
           colors,
@@ -145,15 +150,15 @@ class Tree extends Component {
         );
         this.drawBranch(
           newX, newY,
-          a + this.origin.angleIncrement * NumberUtils.randomFactor( 1, this.origin.randomAngleMax ),
-          l * NumberUtils.randomFactor( 0.5, 0.9 ),
+          a + this.params.angleIncrement * NumberUtils.randomFactor( 1, this.params.randomAngleMax ),
+          l * NumberUtils.randomFactor( this.params.minLengthFactor, this.params.maxLengthFactor ),
           strokeWidth * 0.7,
           newCount,
           colors,
           treeId,
         );
       }, this );
-      if ( count === this.props.maxDepth ) {
+      if ( count === this.params.maxDepth ) {
         this.leafCtx.beginPath();
         this.leaves.push( {
           x: newX,
@@ -171,11 +176,11 @@ class Tree extends Component {
       this.inProgress = false;
       this.branchesFinished += 1;
       // Check and see if all branches have been drawn, if so draw next tree
-      if ( this.branchesFinished === 2 ** ( this.props.maxDepth + 1 ) ) {
+      if ( this.branchesFinished === 2 ** ( this.params.maxDepth + 1 ) ) {
         this.branchesFinished = 0;
         this.treesCompleted += 1;
-        if ( this.treesCompleted < this.props.maxTrees ) {
-          this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.props.maxDepth ) );
+        if ( this.treesCompleted < this.params.maxTrees ) {
+          this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.params.maxDepth ) );
         } else {
           this.dropLeaves();
         }
@@ -191,20 +196,21 @@ class Tree extends Component {
       NumberUtils.randomFactor( this.MARGIN, this.WIDTH - this.MARGIN ),
       this.origin.y,
       this.origin.angle,
-      this.HEIGHT * NumberUtils.randomFactor( this.origin.minLengthFactor, this.origin.maxLengthFactor ),
-      NumberUtils.randomFactor( 1, this.origin.lineWidth ),
+      this.HEIGHT * NumberUtils.randomFactor( 0.05, 0.25 ),
+      NumberUtils.randomFactor( 1, this.params.trunkWidth ),
       0,
       colors,
       treeId,
     );
   }
 
+
   start() {
     this.leaves = [];
     this.treesCompleted = 0;
     this.leafCtx.clearRect( 0, 0, this.leafCanvas.width, this.leafCanvas.height );
     this.fractalCtx.clearRect( 0, 0, this.fractalCanvas.width, this.fractalCanvas.height );
-    this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.props.maxDepth ) );
+    this.drawTree( ColorUtils.interpolateColors( this.BASE_COLOR, this.params.maxDepth ) );
   }
 
   render() {

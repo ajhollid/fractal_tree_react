@@ -16,8 +16,8 @@ class App extends Component {
       angleIncrement: Math.PI / 8,
       randomAngleMax: 1.5, // Min 0, Max 10, step 0.25, def 1.5
       trunkWidth: 10, // Min 0, Max 100, step 1, def 10
-      minLengthFactor: 0.05, // Min 0, Max 0.3, step 0.025, def 0.05
-      maxLengthFactor: 0.25, // Min 0, Max 0.3, step 0.025, def 0.05
+      minLengthFactor: 0.5, // Min 0, Max 0.3, step 0.025, def 0.05
+      maxLengthFactor: 0.9, // Min 0, Max 0.3, step 0.025, def 0.05
     };
 
     this.tree = React.createRef();
@@ -34,8 +34,29 @@ class App extends Component {
   }
 
   startDrawing() {
+    const {
+      maxTrees,
+      maxDepth,
+      frameRate,
+      angleIncrement,
+      randomAngleMax,
+      trunkWidth,
+      minLengthFactor,
+      maxLengthFactor,
+    } = this.state;
+    this.tree.current.setParams( {
+      maxTrees,
+      maxDepth,
+      frameRate,
+      angleIncrement,
+      randomAngleMax,
+      trunkWidth,
+      minLengthFactor,
+      maxLengthFactor,
+    } );
     this.tree.current.start();
   }
+
 
   render() {
     const {
@@ -69,15 +90,7 @@ class App extends Component {
         <div className="background">
           <Tree
             ref={this.tree}
-            maxTrees={maxTrees}
-            maxDepth={maxDepth}
-            frameRate={frameRate}
             baseColor={baseColor}
-            angleIncrement={angleIncrement}
-            randomAngleMax={randomAngleMax}
-            trunkWidth={trunkWidth}
-            minLengthFactor={minLengthFactor}
-            maxLengthFactor={maxLengthFactor}
           />
 
         </div>
