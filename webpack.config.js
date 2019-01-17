@@ -8,20 +8,21 @@ const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzer
 const DIST = path.resolve( __dirname, './dist' );
 
 module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
+  mode: 'development',
+  devtool: 'eval',
   resolve: {
     alias: {
       jquery: path.join( __dirname, './jquery-stub.js' ),
     },
   },
   entry: [
-    // 'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:3000',
     './src/Index.jsx',
   ],
   output: {
     path: DIST,
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [

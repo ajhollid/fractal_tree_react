@@ -11,7 +11,7 @@ import { cpus } from 'os';
 class Controls extends Component {
   render() {
     const {
-      open, onChange, maxTrees, maxDepth, frameRate, randomAngleMax, trunkWidth, minLengthFactor, maxLengthFactor,
+      open, onChange, maxTrees, maxDepth, frameRate, randomAngleMax, trunkWidth, minLengthFactor, maxLengthFactor, trunkLength,
     } = this.props;
     return (
       <div>
@@ -28,10 +28,12 @@ class Controls extends Component {
                         min={1}
                         max={20}
                         step={1}
+
                       />
                     </Col>
                     <Col xs={6} md={4}>
                       <p>Max Trees:</p>
+                      <br />
                     </Col>
                     <Col xs={6} md={2}>
                       {maxTrees}
@@ -50,6 +52,7 @@ class Controls extends Component {
                     </Col>
                     <Col xs={6} md={4}>
                       <p>Max Depth:</p>
+                      <br />
                     </Col>
                     <Col xs={6} md={2}>
                       {maxDepth}
@@ -68,6 +71,7 @@ class Controls extends Component {
                     </Col>
                     <Col xs={6} md={4}>
                       <p>Frame Rate:</p>
+                      <br />
                     </Col>
                     <Col xs={6} md={2}>
                       {frameRate}
@@ -122,7 +126,7 @@ class Controls extends Component {
                       />
                     </Col>
                     <Col xs={6} md={4}>
-                      <p>Min Branch Length Factor:</p>
+                      <p>Min Branch Length:</p>
                     </Col>
                     <Col xs={6} md={2}>
                       {minLengthFactor}
@@ -140,13 +144,29 @@ class Controls extends Component {
                       />
                     </Col>
                     <Col xs={6} md={4}>
-                      <p>Max Branch Length Factor:</p>
+                      <p>Max Branch Length:</p>
                     </Col>
                     <Col xs={6} md={2}>
                       {maxLengthFactor}
                     </Col>
                   </Row>
-
+                  <Row className="show-grid">
+                    <Col xs={12} md={6}>
+                      <ReactBootstrapSlider
+                        value={trunkLength}
+                        change={e => onChange( e, 'trunkLength' )}
+                        min={0}
+                        max={1}
+                        step={0.025}
+                      />
+                    </Col>
+                    <Col xs={6} md={4}>
+                      <p>Trunk Length:</p>
+                    </Col>
+                    <Col xs={6} md={2}>
+                      {trunkLength}
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
               <Row>

@@ -18,6 +18,7 @@ class App extends Component {
       trunkWidth: 10, // Min 0, Max 100, step 1, def 10
       minLengthFactor: 0.5, // Min 0, Max 0.3, step 0.025, def 0.05
       maxLengthFactor: 0.9, // Min 0, Max 0.3, step 0.025, def 0.05
+      trunkLength: 0, // Min 0, max 1, step 0.025, def 0.1
     };
 
     this.tree = React.createRef();
@@ -46,6 +47,7 @@ class App extends Component {
       trunkWidth,
       minLengthFactor,
       maxLengthFactor,
+      trunkLength,
     } = this.state;
     this.tree.current.setParams( {
       maxTrees,
@@ -56,6 +58,7 @@ class App extends Component {
       trunkWidth,
       minLengthFactor,
       maxLengthFactor,
+      trunkLength,
     } );
     this.tree.current.start();
   }
@@ -73,6 +76,7 @@ class App extends Component {
       trunkWidth,
       minLengthFactor,
       maxLengthFactor,
+      trunkLength,
     } = this.state;
     return (
       <div>
@@ -88,6 +92,7 @@ class App extends Component {
           trunkWidth={trunkWidth}
           minLengthFactor={minLengthFactor}
           maxLengthFactor={maxLengthFactor}
+          trunkLength={trunkLength}
           startDrawing={this.startDrawing}
         />
         <div className="background">

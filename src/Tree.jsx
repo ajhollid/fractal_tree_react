@@ -192,7 +192,7 @@ class Tree extends Component {
       NumberUtils.randomFactor( this.MARGIN, this.WIDTH - this.MARGIN ),
       this.HEIGHT,
       -Math.PI / 2,
-      this.HEIGHT * NumberUtils.randomFactor( 0.05, 0.25 ),
+      this.params.trunkLength ? this.params.trunkLength : this.HEIGHT * NumberUtils.randomFactor( 0.05, 0.25 ),
       NumberUtils.randomFactor( 1, this.params.trunkWidth ),
       0,
       colors,
