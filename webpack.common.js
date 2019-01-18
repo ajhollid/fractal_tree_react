@@ -1,22 +1,18 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
-const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
 const CopyWebpackPlugin = require( 'copy-webpack-plugin' );
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
-const BundleAnalyzerPlugin = require( 'webpack-bundle-analyzer' ).BundleAnalyzerPlugin;
 
 const DIST = path.resolve( __dirname, './dist' );
 
 module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
+
   resolve: {
     alias: {
       jquery: path.join( __dirname, './jquery-stub.js' ),
     },
   },
   entry: [
-    // 'webpack-dev-server/client?http://localhost:3000',
     './src/Index.jsx',
   ],
   output: {
@@ -55,8 +51,6 @@ module.exports = {
     ],
   },
   plugins: [
-    // new BundleAnalyzerPlugin(),
-    new CleanWebpackPlugin( DIST ),
     new HtmlWebpackPlugin( {
       filename: 'index.html',
       template: 'index.html',
