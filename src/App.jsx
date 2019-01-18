@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap-buttons';
 import Controls from './Controls.jsx';
 import Tree from './Tree.jsx';
 
@@ -102,9 +101,7 @@ class App extends Component {
           />
 
         </div>
-
-        <Button className="controlButton" btnStyle="primary" outline onClick={() => this.setState( { open: !open } )}>Controls</Button>
-
+        <button type="button" className="controlButton btn btn-inverse btn-blue" onClick={() => this.setState( { open: !open } )}>Controls</button>
       </div>
     );
   }

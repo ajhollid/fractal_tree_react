@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack && rsync -auv dist/ ../public/",
+    "build": "webpack --config webpack.prod.js && rsync -auv dist/ ../public/",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "lint": "eslint --ext .jsx,.js src --fix",
-    "start": "node server.js"
+    "start": "webpack-dev-server --open --config webpack.dev.js"
   },
   "keywords": [],
   "author": "",
@@ -30,15 +30,16 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.28.4",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.1.14",
+    "webpack-merge": "^4.2.1"
   },
   "dependencies": {
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
-    "react-bootstrap-buttons": "^0.3.0",
     "react-bootstrap-slider": "^2.1.5",
     "react-dom": "^16.7.0"
   }

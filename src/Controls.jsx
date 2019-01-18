@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import Button from 'react-bootstrap/lib/Button';
+
 import Collapse from 'react-bootstrap/lib/Collapse';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
-import { Button } from 'react-bootstrap-buttons';
 import { cpus } from 'os';
 
 
@@ -171,7 +172,7 @@ class Controls extends Component {
               </Row>
               <Row>
                 <Col>
-                  <Button btnStyle="primary" outline change={this} onClick={() => this.props.startDrawing()}>Draw</Button>
+                  <Button bsStyle="primary" change={this} onClick={() => this.props.startDrawing()}>Draw</Button>
                 </Col>
               </Row>
 
