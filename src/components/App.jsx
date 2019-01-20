@@ -101,7 +101,7 @@ class App extends Component {
           />
 
         </div>
-        <button type="button" className="controlButton btn btn-inverse btn-blue" onClick={() => this.setState( { open: !open } )}>Controls</button>
+        <button type="button" className="controlButton btn btn-inverse btn-blue" onClick={() => this.setState( { open: !open } )}>Parameters</button>
       </div>
     );
   }

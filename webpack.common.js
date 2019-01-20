@@ -13,7 +13,7 @@ module.exports = {
     },
   },
   entry: [
-    './src/Index.jsx',
+    './src/components/Index.jsx',
   ],
   output: {
     path: DIST,

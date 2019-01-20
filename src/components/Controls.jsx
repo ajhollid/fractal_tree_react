@@ -172,7 +172,7 @@ class Controls extends Component {
               </Row>
               <Row>
                 <Col>
-                  <Button bsStyle="primary" change={this} onClick={() => this.props.startDrawing()}>Draw</Button>
+                  <Button bsStyle="primary" change={this} onClick={() => this.props.startDrawing()}>Plant!</Button>
                 </Col>
               </Row>
 

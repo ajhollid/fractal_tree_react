@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ColorUtils from './ColorUtils.js';
-import NumberUtils from './NumberUtils.js';
+import ColorUtils from '../utils/ColorUtils.js';
+import NumberUtils from '../utils/NumberUtils.js';
 
 class Tree extends Component {
   constructor( props ) {
