@@ -27,5 +27,10 @@ To build the project for distribution
 ```
 npm run build
 ```
+To push built app to GH Pages
+```
+npm run deploy
+```
+
 ### Acknowledgements
 [This Youtube Video](https://www.youtube.com/watch?v=0jjeOYMjmDU) from Coding Train served as inspiration for this project.
