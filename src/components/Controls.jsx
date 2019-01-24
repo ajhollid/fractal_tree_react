@@ -6,13 +6,22 @@ import Button from 'react-bootstrap/lib/Button';
 
 import Collapse from 'react-bootstrap/lib/Collapse';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
-import { cpus } from 'os';
-
+import PropTypes from 'prop-types';
 
 class Controls extends Component {
   render() {
     const {
-      open, onChange, maxTrees, maxDepth, frameRate, randomAngleMax, trunkWidth, minLengthFactor, maxLengthFactor, trunkLength,
+      open,
+      onChange,
+      maxTrees,
+      maxDepth,
+      frameRate,
+      randomAngleMax,
+      trunkWidth,
+      minLengthFactor,
+      maxLengthFactor,
+      trunkLength,
+      startDrawing,
     } = this.props;
     return (
       <div>
@@ -29,7 +38,6 @@ class Controls extends Component {
                         min={1}
                         max={20}
                         step={1}
-
                       />
                     </Col>
                     <Col xs={6} md={4}>
@@ -40,7 +48,6 @@ class Controls extends Component {
                       {maxTrees}
                     </Col>
                   </Row>
-
                   <Row className="show-grid">
                     <Col xs={12} md={6}>
                       <ReactBootstrapSlider
@@ -78,7 +85,6 @@ class Controls extends Component {
                       {frameRate}
                     </Col>
                   </Row>
-
                   <Row className="show-grid">
                     <Col xs={12} md={6}>
                       <ReactBootstrapSlider
@@ -133,7 +139,6 @@ class Controls extends Component {
                       {minLengthFactor}
                     </Col>
                   </Row>
-
                   <Row className="show-grid">
                     <Col xs={12} md={6}>
                       <ReactBootstrapSlider
@@ -171,17 +176,47 @@ class Controls extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col>
-                  <Button bsStyle="primary" change={this} onClick={() => this.props.startDrawing()}>Plant!</Button>
+                <Col xs={6}>
+                  <Button bsStyle="primary" change={this} onClick={() => startDrawing()}>Plant!</Button>
+                </Col>
+                <Col xs={6}>
+                  <Button bsStyle="primary" change={this} onClick={() => startDrawing()}>Drop Leaves!</Button>
                 </Col>
               </Row>
-
             </Grid>
-
           </div>
         </Collapse>
       </div>
     );
   }
 }
+
+Controls.propTypes = {
+  open: PropTypes.bool,
+  onChange: PropTypes.func,
+  maxTrees: PropTypes.number,
+  maxDepth: PropTypes.number,
+  frameRate: PropTypes.number,
+  randomAngleMax: PropTypes.number,
+  trunkWidth: PropTypes.number,
+  minLengthFactor: PropTypes.number,
+  maxLengthFactor: PropTypes.number,
+  trunkLength: PropTypes.number,
+  startDrawing: PropTypes.func,
+};
+
+Controls.defaultProps = {
+  open: false,
+  onChange() {},
+  maxTrees: 1,
+  maxDepth: 10,
+  frameRate: 20,
+  randomAngleMax: 1.5,
+  trunkWidth: 10,
+  minLengthFactor: 0.5,
+  maxLengthFactor: 0.9,
+  trunkLength: 0,
+  startDrawing() {},
+};
+
 export default Controls;

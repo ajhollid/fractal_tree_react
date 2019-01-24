@@ -5,17 +5,21 @@ import NumberUtils from '../utils/NumberUtils.js';
 class Tree extends Component {
   constructor( props ) {
     super( props );
+
+    // Canvas setup
     this.fractalCanvasRef = React.createRef();
     this.leafCanvasRef = React.createRef();
     this.WIDTH = window.innerWidth;
     this.HEIGHT = window.innerHeight;
     this.MARGIN = 200;
 
+    // Leaves
     this.floor = [];
     this.leaves = [];
     this.branchesFinished = 0;
     this.treesCompleted = 0;
 
+    // Function binding
     this.dropLeaves = this.dropLeaves.bind( this );
     this.setupCanvases = this.setupCanvases.bind( this );
     this.dropLeaves = this.dropLeaves.bind( this );
@@ -34,12 +38,10 @@ class Tree extends Component {
   setupCanvases() {
     this.fractalCtx = this.fractalCanvas.getContext( '2d' );
     this.leafCtx = this.leafCanvas.getContext( '2d' );
-
     this.leafCanvas.width = window.innerWidth;
     this.leafCanvas.height = window.innerHeight;
     this.leafCtx.canvas.width = this.WIDTH;
     this.leafCtx.canvas.height = this.HEIGHT;
-
     this.fractalCanvas.width = window.innerWidth;
     this.fractalCanvas.height = window.innerHeight;
     this.fractalCtx.canvas.width = this.WIDTH;
@@ -128,7 +130,8 @@ class Tree extends Component {
       waypoints = NumberUtils.buildWaypoints( x, y, newX, newY, this.params.frameRate );
       drawLine( () => {
         this.drawBranch(
-          newX, newY,
+          newX,
+          newY,
           a - this.params.angleIncrement * NumberUtils.randomFactor(
             1, this.params.randomAngleMax,
           ),
@@ -141,7 +144,8 @@ class Tree extends Component {
           treeId,
         );
         this.drawBranch(
-          newX, newY,
+          newX,
+          newY,
           a + this.params.angleIncrement * NumberUtils.randomFactor(
             1, this.params.randomAngleMax,
           ),
@@ -184,7 +188,6 @@ class Tree extends Component {
     }
   }
 
-
   drawTree( colors ) {
     const treeId = Math.random();
     this.currentTree = treeId;
@@ -201,7 +204,6 @@ class Tree extends Component {
       treeId,
     );
   }
-
 
   start() {
     this.leaves = [];
@@ -222,4 +224,5 @@ class Tree extends Component {
     );
   }
 }
+
 export default Tree;
