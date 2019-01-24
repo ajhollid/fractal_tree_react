@@ -15,8 +15,8 @@ class App extends Component {
       angleIncrement: Math.PI / 8,
       randomAngleMax: 1.5, // Min 0, Max 10, step 0.25, def 1.5
       trunkWidth: 10, // Min 0, Max 100, step 1, def 10
-      minLengthFactor: 0.5, // Min 0, Max 0.3, step 0.025, def 0.05
-      maxLengthFactor: 0.9, // Min 0, Max 0.3, step 0.025, def 0.05
+      minLengthFactor: 0.5, // Min 0, Max 1, step 0.025, def 0.03
+      maxLengthFactor: 0.9, // Min 0, Max 1, step 0.025, def 0.09
       trunkLength: 0, // Min 0, max 1, step 0.025, def 0.1
     };
 
@@ -99,7 +99,6 @@ class App extends Component {
             ref={this.tree}
             baseColor={baseColor}
           />
-
         </div>
         <button type="button" className="controlButton btn btn-inverse btn-blue" onClick={() => this.setState( { open: !open } )}>Parameters</button>
       </div>

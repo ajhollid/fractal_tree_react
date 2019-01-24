@@ -130,7 +130,8 @@ class Tree extends Component {
       waypoints = NumberUtils.buildWaypoints( x, y, newX, newY, this.params.frameRate );
       drawLine( () => {
         this.drawBranch(
-          newX, newY,
+          newX,
+          newY,
           a - this.params.angleIncrement * NumberUtils.randomFactor(
             1, this.params.randomAngleMax,
           ),
@@ -143,7 +144,8 @@ class Tree extends Component {
           treeId,
         );
         this.drawBranch(
-          newX, newY,
+          newX,
+          newY,
           a + this.params.angleIncrement * NumberUtils.randomFactor(
             1, this.params.randomAngleMax,
           ),
